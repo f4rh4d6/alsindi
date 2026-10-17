@@ -8,7 +8,9 @@ import re
 import datetime
 
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
-DIRECTORY = "/Users/alsindi/Desktop/website"
+DIRECTORY = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ADMIN_USER = "Admin"
+ADMIN_PASS = "Admin"
 
 class AdminAPIHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -17,12 +19,45 @@ class AdminAPIHandler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *args):
         pass
 
+    def _is_authenticated(self):
+        auth_header = self.headers.get('Authorization')
+        if not auth_header:
+            return False
+        try:
+            auth_type, encoded = auth_header.split(' ', 1)
+            if auth_type.lower() != 'basic':
+                return False
+            decoded = base64.b64decode(encoded).decode('utf-8')
+            username, password = decoded.split(':', 1)
+            return username == ADMIN_USER and password == ADMIN_PASS
+        except Exception:
+            return False
+
+    def _require_auth(self):
+        if not self._is_authenticated():
+            self.send_response(401)
+            self.send_header('WWW-Authenticate', 'Basic realm="Admin Access Required"')
+            self.send_header('Content-Type', 'text/html; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(b"<h1>401 Unauthorized - Admin Login Required</h1>")
+            return False
+        return True
+
     def do_GET(self):
+        # Require authentication to view admin.html or /admin
+        clean_path = self.path.split('?')[0]
+        if clean_path in ('/admin.html', '/admin'):
+            if not self._require_auth():
+                return
+
         if self.path == '/api/data':
             self._handle_get_data()
         elif self.path == '/api/images':
             self._handle_get_images()
         elif self.path == '/api/inquiries':
+            if not self._require_auth():
+                return
             self._handle_get_inquiries()
         else:
             super().do_GET()
@@ -66,12 +101,18 @@ class AdminAPIHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_POST(self):
         if self.path == '/api/save':
+            if not self._require_auth():
+                return
             self._handle_save()
         elif self.path == '/api/upload':
+            if not self._require_auth():
+                return
             self._handle_upload()
         elif self.path == '/api/inquiry':
             self._handle_post_inquiry()
         elif self.path == '/api/save-css':
+            if not self._require_auth():
+                return
             self._handle_save_css()
         else:
             self.send_error(404, "Endpoint not found")
@@ -222,7 +263,7 @@ function getSiteData() {{
         self.send_response(204)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
         self.end_headers()
 
 # Allow terminating old servers to free up port

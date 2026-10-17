@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plates Catalog — Ainsley Ford | The Survey</title>
+  <meta name="description" content="Complete photographic catalog of architectural and landscape survey plates by Ainsley Ford." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/data.js"></script>
+</head>
+<body>
+
+  <header class="site-header scrolled" id="site-header">
+    <div class="wrap">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span data-bind="identity.name">Ainsley Ford</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html">Index</a>
+        <a href="gallery.html" aria-current="page">Plates (16)</a>
+        <a href="commentary.html">Commentary</a>
+        <a href="about.html">Dossier</a>
+        <a href="contact.html">Inquiries</a>
+        <a href="admin.html" class="admin-link">Studio Admin ✎</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <section class="gallery-page-head">
+      <div class="wrap">
+        <span class="section-title">Catalog Index — 2022–2026</span>
+        <h1 class="display" style="font-size: clamp(2.5rem, 6vw, 5rem); margin-top: 0.5rem;">The Plates</h1>
+        <p class="lede" style="margin-top: 0.75rem;">
+          A running survey of architectural structures, coastal edges, and civil infrastructures. Click any plate to open the full-resolution viewer.
+        </p>
+
+        <div class="gallery-controls-bar">
+          <div class="filters" role="group" aria-label="Filter works by category">
+            <button class="filter-btn" data-filter="all" aria-pressed="true">All Works (<span id="count-all">16</span>)</button>
+            <button class="filter-btn" data-filter="architecture" aria-pressed="false">Architecture (<span id="count-arch">7</span>)</button>
+            <button class="filter-btn" data-filter="landscape" aria-pressed="false">Landscape (<span id="count-land">4</span>)</button>
+            <button class="filter-btn" data-filter="commentary" aria-pressed="false">Commentary (<span id="count-comm">5</span>)</button>
+          </div>
+
+          <div class="view-toggles" role="group" aria-label="Catalog display mode">
+            <button class="view-btn active" id="btn-wall-view" title="Grid Wall View">Wall View</button>
+            <button class="view-btn" id="btn-ledger-view" title="Archival Ledger Table">Archive Ledger</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-content">
+      <div class="wrap">
+        <div class="gallery-grid" id="gallery-grid">
+          <!-- Populated dynamically by script.js from data.js -->
+        </div>
+
+        <table class="ledger-view" id="ledger-view">
+          <thead>
+            <tr>
+              <th>Plate</th>
+              <th>Preview</th>
+              <th>Title</th>
+              <th>Series / Category</th>
+              <th>Year</th>
+              <th>Technical Camera Meta</th>
+            </tr>
+          </thead>
+          <tbody id="ledger-body">
+            <!-- Populated by script.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span data-bind="identity.name">Ainsley Ford</span>
+      </span>
+      <span class="meta-label">
+        © <span data-bind="identity.copyrightYear">2026</span> — All photographic plates are copyrighted.
+        <a href="admin.html" style="margin-left:1.5rem; color:var(--sage);">Studio Admin ✎</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Survey Plate Viewer">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close viewer">Close [ESC]</button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous plate">‹</button>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next plate">›</button>
+    <figure class="lightbox-figure">
+      <img id="lightbox-img" src="" alt="" />
+      <figcaption class="lightbox-cap">
+        <div>
+          <span id="lightbox-title" style="font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 1.1rem; display: block;"></span>
+          <span class="meta-label" id="lightbox-meta" style="color: var(--sage); margin-top: 0.25rem; display: block;"></span>
+        </div>
+        <div style="max-width: 50ch;">
+          <span class="caption" id="lightbox-caption"></span>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inquiries &amp; Commissions — Ainsley Ford</title>
+  <meta name="description" content="Contact and commission desk for architectural and landscape photographer Ainsley Ford." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/data.js"></script>
+</head>
+<body>
+
+  <header class="site-header scrolled" id="site-header">
+    <div class="wrap">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span data-bind="identity.name">Ainsley Ford</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html">Index</a>
+        <a href="gallery.html">Plates (16)</a>
+        <a href="commentary.html">Commentary</a>
+        <a href="about.html">Dossier</a>
+        <a href="contact.html" aria-current="page">Inquiries</a>
+        <a href="admin.html" class="admin-link">Studio Admin ✎</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="contact-page">
+      <div class="wrap">
+
+        <div class="contact-split">
+
+          <div>
+            <span class="section-title" data-bind="contact.eyebrow">Dispatch &amp; Commissions</span>
+            <h1 class="display" style="font-size:clamp(2.5rem, 5vw, 4rem);" data-bind="contact.title">
+              Let's Build<br />Something
+            </h1>
+            <p class="lede" data-bind="contact.lede" style="margin-top: 1.25rem;">
+              Available for architectural documentation, editorial assignments, exhibition loans, and fine art print acquisitions worldwide.
+            </p>
+
+            <div class="instagram-featured-card" style="margin-top: 2.5rem;">
+              <h4>Instagram Field Channel</h4>
+              <p>
+                Follow the running survey feed at <strong data-bind="identity.instagram">@ainsleyford</strong> for daily unreleased 35mm contact sheets, architectural coordinates, and field dispatches from recent trips.
+              </p>
+              <a href="https://instagram.com/ainsleyford" target="_blank" rel="noopener" class="instagram-btn" id="instagram-link-btn">
+                Follow on Instagram
+              </a>
+            </div>
+
+            <ul class="contact-channels" id="contact-channels">
+              <!-- Populated by script.js -->
+            </ul>
+
+            <p style="margin-top: 2rem; font-size: 0.82rem; color: var(--white-faint); font-weight: 300;">
+              All prints are produced on 315gsm Hahnemühle cotton rag in signed editions of 8 + 2 AP. Certificate of authenticity included.
+            </p>
+          </div>
+
+          <div>
+            <div class="inquiry-form-card">
+              <h3>Commission &amp; Acquisition Brief</h3>
+              <p>Submit your inquiry below. Responses within 24–48 studio hours.</p>
+
+              <form id="inquiry-form" onsubmit="handleInquirySubmit(event)">
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label for="f-name">Full Name</label>
+                    <input type="text" id="f-name" required placeholder="e.g. Elena Rostova" />
+                  </div>
+
+                  <div class="form-field">
+                    <label for="f-email">Email Address</label>
+                    <input type="email" id="f-email" required placeholder="elena@studio.org" />
+                  </div>
+
+                  <div class="form-field">
+                    <label for="f-org">Organization / Gallery</label>
+                    <input type="text" id="f-org" placeholder="e.g. Architectural Review / Private Collector" />
+                  </div>
+
+                  <div class="form-field">
+                    <label for="f-type">Inquiry type</label>
+                    <select id="f-type" required>
+                      <option value="Architectural Documentation Commission">Architectural Documentation Commission</option>
+                      <option value="Editorial Photo Essay Assignment">Editorial Photo Essay Assignment</option>
+                      <option value="Limited Edition Print Acquisition">Limited Edition Print Acquisition</option>
+                      <option value="Institutional Exhibition Loan">Institutional Exhibition Loan</option>
+                      <option value="General Conversation / Press">General Conversation / Press</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="f-msg">Project scope or plate reference</label>
+                    <textarea id="f-msg" required placeholder="Describe location, timing, required deliverable, or specific plate number(s)..."></textarea>
+                  </div>
+
+                  <button type="submit" class="submit-btn" id="submit-btn">
+                    Send Inquiry
+                  </button>
+                </div>
+              </form>
+
+              <div id="form-success" style="display:none; margin-top: 1.5rem; padding: 1.25rem; background: var(--sage-dim); border-left: 2px solid var(--sage);">
+                <strong style="color:var(--sage); font-size:0.88rem; display:block; margin-bottom:0.35rem;">
+                  Inquiry sent
+                </strong>
+                <p style="font-size:0.88rem; color:var(--white-dim); margin:0; font-weight: 300;">
+                  Your mail application has been prepared, or email directly at <a href="mailto:hello@ainsleyford.photo" style="color:var(--sage);">hello@ainsleyford.photo</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span data-bind="identity.name">Ainsley Ford</span>
+      </span>
+      <span class="meta-label">
+        © <span data-bind="identity.copyrightYear">2026</span> — All photographs are the artist's own.
+        <a href="admin.html" style="margin-left:1.5rem; color:var(--sage);">Studio Admin ✎</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+  <script>
+    function handleInquirySubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('f-name').value;
+      const email = document.getElementById('f-email').value;
+      const org = document.getElementById('f-org').value;
+      const type = document.getElementById('f-type').value;
+      const msg = document.getElementById('f-msg').value;
+
+      const subject = encodeURIComponent(`[Commission Brief] ${type} — ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nOrganization: ${org}\nInquiry Type: ${type}\n\nProject Scope & Message:\n${msg}`);
+
+      const siteData = typeof getSiteData === 'function' ? getSiteData() : {};
+      const destEmail = (siteData.identity && siteData.identity.email) ? siteData.identity.email : 'hello@ainsleyford.photo';
+
+      // Also post to server API if available
+      try {
+        fetch('/api/inquiry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, org, type, message: msg })
+        }).catch(() => {});
+      } catch (err) {}
+
+      window.location.href = `mailto:${destEmail}?subject=${subject}&body=${body}`;
+
+      document.getElementById('form-success').style.display = 'block';
+      document.getElementById('submit-btn').textContent = 'Sent ✓';
+    }
+  </script>
+</body>
+</html>

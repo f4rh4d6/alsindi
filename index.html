@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ainsley Ford — The Survey | Architecture &amp; Landscape Photography</title>
+  <meta name="description" content="Portfolio of Ainsley Ford, architectural and landscape photographer exploring built environments, social structures, and contested terrain." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/data.js"></script>
+</head>
+<body>
+
+  <!-- ======================= HEADER ======================= -->
+  <header class="site-header" id="site-header">
+    <div class="wrap">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span data-bind="identity.name">Ainsley Ford</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html" aria-current="page">Index</a>
+        <a href="gallery.html">Plates (16)</a>
+        <a href="commentary.html">Commentary</a>
+        <a href="about.html">Dossier</a>
+        <a href="contact.html">Inquiries</a>
+        <a href="admin.html" class="admin-link">Studio Admin ✎</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ======================= HERO — FULLSCREEN ======================= -->
+    <section class="hero">
+      <div class="hero-bg">
+        <img
+          id="hero-img"
+          src="assets/images/01-hamburg-spire.jpg"
+          alt="St. Nikolai spire and modern architectural rooftops over Hamburg"
+          width="2400" height="1400"
+        />
+      </div>
+
+      <div class="hero-content">
+        <div class="wrap">
+          <div>
+            <h1 class="display" data-bind="home.heroTitle" style="white-space: pre-line">Built<br />Worlds,<br />Contested<br />Ground</h1>
+            <p class="lede" data-bind="home.heroLede" style="margin-top: 1.5rem;">
+              Photographs of structures that shape public life — from housing blocks to coastal margins — tracing the line between the built environment and the people it holds.
+            </p>
+          </div>
+          <div class="hero-plate-info">
+            <span class="plate-title" data-bind="home.heroPlateTitle">St. Nikolai Spire &amp; Urban Ridge, Hamburg</span>
+            <span class="meta-label" data-bind="home.heroPlateMeta">Canon EOS · 35mm · f/8 · 1/250s — Survey 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= CURATED HIGHLIGHTS ======================= -->
+    <section class="cover-highlights">
+      <div class="wrap">
+        <div class="section-header">
+          <div>
+            <span class="section-title">Selected Studies</span>
+            <h2>Recent Dispatches</h2>
+          </div>
+          <a href="gallery.html" class="section-header-right">
+            View all 16 plates
+          </a>
+        </div>
+
+        <div class="highlights-grid">
+          <a href="gallery.html" class="highlight-card">
+            <div class="highlight-img">
+              <img src="assets/images/01-hamburg-spire.jpg" alt="Hamburg Spire" loading="lazy" />
+            </div>
+            <div class="highlight-content">
+              <div class="plate-num">Plate 01 — Architecture</div>
+              <div class="title">St. Nikolai Spire &amp; Urban Ridge</div>
+              <p class="caption">The gothic memorial spire rising like a sundial through contemporary office blocks.</p>
+            </div>
+          </a>
+
+          <a href="gallery.html" class="highlight-card">
+            <div class="highlight-img">
+              <img src="assets/images/04-hamburg-rathaus-barriers.jpg" alt="Hamburg Rathaus Barriers" loading="lazy" />
+            </div>
+            <div class="highlight-content">
+              <div class="plate-num">Plate 04 — Commentary</div>
+              <div class="title">Perimeter &amp; Rathaus Square</div>
+              <p class="caption">Temporary crowd control barriers marking the boundary of assembly outside municipal power.</p>
+            </div>
+          </a>
+
+          <a href="gallery.html" class="highlight-card">
+            <div class="highlight-img">
+              <img src="assets/images/02-hamburg-skyline.jpg" alt="Hamburg Skyline" loading="lazy" />
+            </div>
+            <div class="highlight-content">
+              <div class="plate-num">Plate 02 — Architecture</div>
+              <div class="title">Rooftop Horizons &amp; Facades</div>
+              <p class="caption">Stratification of brick, glass, and copper roofs along the canal district.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= ARTIST STATEMENT ======================= -->
+    <section class="statement">
+      <div class="wrap" style="max-width: 960px;">
+        <blockquote>
+          "<span data-bind="statement.quote">Every photograph is a decision about what deserves to be looked at. I choose the places that quietly decide how we live — and I make them impossible to walk past again.</span>"
+          <footer>— <span data-bind="statement.quoteSource">Field Notes, 2025</span></footer>
+        </blockquote>
+        <div class="statement-body" id="statement-paras">
+          <!-- Populated from data.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= PORTALS NAVIGATION ======================= -->
+    <section class="cover-portals">
+      <div class="wrap">
+        <div class="section-header">
+          <div>
+            <span class="section-title">Index Navigation</span>
+            <h2>Explore the body of work</h2>
+          </div>
+        </div>
+
+        <div class="portal-grid">
+          <a href="gallery.html" class="portal-item">
+            <div>
+              <span class="portal-section">Exhibition</span>
+              <h3>The Plates Catalog</h3>
+              <p>The complete index of 16 architectural and landscape surveys with interactive category filtering, technical Exif notes, and full-resolution lightbox viewer.</p>
+            </div>
+            <span class="action">Open Plates Index</span>
+          </a>
+
+          <a href="commentary.html" class="portal-item">
+            <div>
+              <span class="portal-section">Critical Monograph</span>
+              <h3>Commentary &amp; Dispatches</h3>
+              <p>Critical essays on built structures as social diagrams, surveyor's orange as the marker of intervention, and public space negotiation.</p>
+            </div>
+            <span class="action">Read Field Essays</span>
+          </a>
+
+          <a href="about.html" class="portal-item">
+            <div>
+              <span class="portal-section">Artist Dossier</span>
+              <h3>The Field Dossier</h3>
+              <p>Photographer background, field kit equipment, exhibition history, printing methods, and survey statistics from a decade in the field.</p>
+            </div>
+            <span class="action">View Dossier</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span data-bind="identity.name">Ainsley Ford</span>
+      </span>
+      <span class="meta-label">
+        © <span data-bind="identity.copyrightYear">2026</span> — All photographs are the artist's own.
+        <a href="admin.html" style="margin-left:1.5rem; color:var(--sage);">Open Studio Admin ✎</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

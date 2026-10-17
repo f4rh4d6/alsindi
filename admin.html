@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — The Survey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <script src="assets/js/data.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-dot"></div>
+        <div class="logo-text">Studio Control</div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-label">Core</div>
+        <div class="nav-item active" onclick="switchPanel('dashboard')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Overview
+        </div>
+        <div class="nav-item" onclick="switchPanel('photos')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          Plates Catalog (<span id="sidebar-photo-count">0</span>)
+        </div>
+        <div class="nav-item" onclick="switchPanel('media')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          Media Library
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-label">Pages & Editorial</div>
+        <div class="nav-item" onclick="switchPanel('home')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          Cover & Statement
+        </div>
+        <div class="nav-item" onclick="switchPanel('about')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Field Dossier
+        </div>
+        <div class="nav-item" onclick="switchPanel('commentary')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          Commentary
+        </div>
+        <div class="nav-item" onclick="switchPanel('contact')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          Inquiries Desk (<span id="sidebar-inquiry-count">0</span>)
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-label">Configuration</div>
+        <div class="nav-item" onclick="switchPanel('settings')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          Identity & Meta
+        </div>
+        <div class="nav-item" onclick="switchPanel('design')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r="0.5" fill="currentColor"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
+          Design &amp; Appearance
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-secondary" style="width:100%; justify-content:center;" onclick="openPreviewModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          Live Preview
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Action Bar -->
+      <header class="top-bar">
+        <div class="flex-row">
+          <h1 id="panel-title">Overview</h1>
+          <span id="unsaved-indicator">● Unsaved Changes</span>
+        </div>
+        <div class="top-bar-actions">
+          <a href="index.html" class="btn btn-secondary" target="_blank">
+            Visit Site ↗
+          </a>
+          <button class="btn btn-primary" onclick="saveDataToServer()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            Save Changes
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Container -->
+      <div class="content-scroller">
+
+        <!-- DASHBOARD PANEL -->
+        <section id="panel-dashboard" class="panel active">
+          <div class="dashboard-stats">
+            <div class="stat-card">
+              <div class="stat-label">Catalog Plates</div>
+              <div class="stat-value" id="dash-plate-count">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Categories</div>
+              <div class="stat-value">3</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Documented Sites</div>
+              <div class="stat-value" id="dash-sites-count">140+</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Field Community</div>
+              <div class="stat-value" id="dash-community-count">52k</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Quick Actions</h3>
+            </div>
+            <div class="card-body">
+              <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                <button class="btn btn-secondary" onclick="switchPanel('photos'); document.getElementById('add-photo-drawer').scrollIntoView();">
+                  + Add New Photograph
+                </button>
+                <button class="btn btn-secondary" onclick="switchPanel('home')">
+                  Update Hero Section
+                </button>
+                <button class="btn btn-secondary" onclick="exportBackupJson()">
+                  Export JSON Backup
+                </button>
+                <button class="btn btn-secondary" onclick="document.getElementById('import-file-input').click()">
+                  Restore From JSON
+                </button>
+                <input type="file" id="import-file-input" accept=".json" style="display:none;" onchange="importBackupJson(event)">
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>System Status</h3>
+            </div>
+            <div class="card-body">
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                <div>
+                  <div class="stat-label">Storage Backend</div>
+                  <div style="font-size:14px; font-weight:600; color:var(--admin-text); display:flex; align-items:center; gap:8px;">
+                    <span style="display:inline-block; width:8px; height:8px; background-color:var(--admin-success); border-radius:50%;"></span>
+                    Python Local API Server (Direct Sync)
+                  </div>
+                </div>
+                <div>
+                  <div class="stat-label">Theme Mode</div>
+                  <div style="font-size:14px; font-weight:600; color:var(--admin-text);">
+                    Immersive Dark Photography UI
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PHOTOS & PLATES PANEL -->
+        <section id="panel-photos" class="panel">
+          <div class="card" id="add-photo-drawer">
+            <div class="card-header">
+              <h3>Add New Plate</h3>
+            </div>
+            <div class="card-body">
+              <!-- Upload Area -->
+              <div style="border:2px dashed var(--admin-border); border-radius:8px; padding:32px; text-align:center; cursor:pointer; margin-bottom:24px; background:rgba(255,255,255,0.01);" onclick="document.getElementById('photo-file-upload').click()">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--admin-text-dim)" stroke-width="2" style="margin-bottom:8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <div style="font-weight:600; margin-bottom:4px;">Upload Image File</div>
+                <div style="font-size:12px; color:var(--admin-text-dim);">JPG, PNG, WEBP or SVG directly saved to server</div>
+                <input type="file" id="photo-file-upload" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)">
+              </div>
+
+              <div id="new-photo-preview-container" style="display:none; margin-bottom:24px; text-align:center;">
+                <img id="new-photo-preview" src="" style="max-height:200px; border-radius:4px; border:1px solid var(--admin-border);">
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Plate Number</label>
+                  <input type="text" id="new-plate-num" placeholder="e.g. N°17">
+                </div>
+                <div class="form-group">
+                  <label>Plate Title</label>
+                  <input type="text" id="new-plate-title" placeholder="e.g. Industrial Canal Lock">
+                </div>
+                <div class="form-group">
+                  <label>Category</label>
+                  <select id="new-plate-category">
+                    <option value="architecture">Architecture</option>
+                    <option value="landscape">Landscape</option>
+                    <option value="commentary">Commentary</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Year</label>
+                  <input type="text" id="new-plate-year" value="2026">
+                </div>
+                <div class="form-group">
+                  <label>Image Path</label>
+                  <input type="text" id="new-plate-image" placeholder="images/filename.jpg">
+                </div>
+                <div class="form-group">
+                  <label>Technical Camera EXIF</label>
+                  <input type="text" id="new-plate-meta" placeholder="Canon EOS · 35mm · f/8 · 1/250s">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Field Notes / Caption</label>
+                <textarea id="new-plate-caption" placeholder="Describe the physical, spatial, or social context of the survey photograph..."></textarea>
+              </div>
+
+              <button class="btn btn-primary" onclick="addPlate()">
+                Add to Plates Catalog
+              </button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Existing Works (<span id="existing-plates-count">0</span>)</h3>
+              <div class="flex-row">
+                <select id="category-filter" style="width:auto; padding:6px 12px; font-size:12px;" onchange="renderPlatesList()">
+                  <option value="all">All Categories</option>
+                  <option value="architecture">Architecture</option>
+                  <option value="landscape">Landscape</option>
+                  <option value="commentary">Commentary</option>
+                </select>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="photo-list" id="plates-container">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MEDIA LIBRARY PANEL -->
+        <section id="panel-media" class="panel">
+          <div class="card">
+            <div class="card-header">
+              <h3>Uploaded Server Images</h3>
+              <button class="btn btn-sm btn-secondary" onclick="fetchMediaImages()">Refresh Library</button>
+            </div>
+            <div class="card-body">
+              <div class="media-grid" id="media-library-grid">
+                <!-- Dynamically loaded -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- HOME COVER & STATEMENT PANEL -->
+        <section id="panel-home" class="panel">
+          <div class="card">
+            <div class="card-header">
+              <h3>Hero Frontispiece</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Eyebrow Tag</label>
+                  <input type="text" data-bind="home.eyebrow">
+                </div>
+                <div class="form-group">
+                  <label>Featured Plate Selection</label>
+                  <input type="text" data-bind="home.heroImage">
+                </div>
+                <div class="form-group">
+                  <label>Hero Plate Title</label>
+                  <input type="text" data-bind="home.heroPlateTitle">
+                </div>
+                <div class="form-group">
+                  <label>Hero Plate Camera Meta</label>
+                  <input type="text" data-bind="home.heroPlateMeta">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Monumental Display Headline (Line breaks supported)</label>
+                <textarea data-bind="home.heroTitle" style="min-height:80px;"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Introductory Lede Text</label>
+                <textarea data-bind="home.heroLede" style="min-height:80px;"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Artist Manifesto & Statement</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label>Manifesto Quote</label>
+                <textarea data-bind="statement.quote" style="min-height:70px;"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Quote Source Attribution</label>
+                <input type="text" data-bind="statement.quoteSource">
+              </div>
+              <div class="form-group">
+                <label>Statement Paragraphs (Separate each paragraph with two newlines)</label>
+                <textarea data-bind="statement.paragraphs" style="min-height:160px;"></textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FIELD DOSSIER PANEL -->
+        <section id="panel-about" class="panel">
+          <div class="card">
+            <div class="card-header">
+              <h3>Photographer Profile & Biography</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Heading</label>
+                  <input type="text" data-bind="about.heading">
+                </div>
+                <div class="form-group">
+                  <label>Portrait Image</label>
+                  <input type="text" data-bind="about.portraitImage">
+                </div>
+                <div class="form-group">
+                  <label>Portrait Caption</label>
+                  <input type="text" data-bind="about.portraitCaption">
+                </div>
+                <div class="form-group">
+                  <label>Field Kit & Medium</label>
+                  <input type="text" data-bind="about.gear">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Biography Paragraphs (Separate each with two newlines)</label>
+                <textarea data-bind="about.bioParagraphs" style="min-height:160px;"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Survey Philosophy Statement</label>
+                <textarea data-bind="about.philosophy" style="min-height:70px;"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Quantitative Metrics & Stats</h3>
+              <button class="btn btn-sm btn-secondary" onclick="addMetric()">+ Add Metric</button>
+            </div>
+            <div class="card-body">
+              <div id="stats-container" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- COMMENTARY PANEL -->
+        <section id="panel-commentary" class="panel">
+          <div class="card">
+            <div class="card-header">
+              <h3>Monograph Essay Intro</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label>Main Essay Title</label>
+                <input type="text" data-bind="commentary.title">
+              </div>
+              <div class="form-group">
+                <label>Pull-Quote</label>
+                <textarea data-bind="commentary.quote" style="min-height:70px;"></textarea>
+              </div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Quote Author</label>
+                  <input type="text" data-bind="commentary.quoteAuthor">
+                </div>
+                <div class="form-group">
+                  <label>Quote Source</label>
+                  <input type="text" data-bind="commentary.quoteSource">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Essay Chapters</h3>
+              <button class="btn btn-sm btn-secondary" onclick="addChapter()">+ Add Chapter</button>
+            </div>
+            <div class="card-body" id="chapters-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTACT & INQUIRIES PANEL -->
+        <section id="panel-contact" class="panel">
+          <div class="card">
+            <div class="card-header">
+              <h3>Received Commission Inquiries</h3>
+              <button class="btn btn-sm btn-secondary" onclick="fetchInquiries()">Refresh Inquiries</button>
+            </div>
+            <div class="card-body">
+              <div id="inquiries-container">
+                <div style="color:var(--admin-text-dim); text-align:center; padding:24px;">No inquiries received yet.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Inquiries Page Configuration</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label>Page Title</label>
+                <input type="text" data-bind="contact.title">
+              </div>
+              <div class="form-group">
+                <label>Introduction / Commission Lede</label>
+                <textarea data-bind="contact.lede" style="min-height:80px;"></textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DESIGN & APPEARANCE PANEL -->
+        <section id="panel-design" class="panel">
+
+          <!-- COLORS -->
+          <div class="card">
+            <div class="card-header">
+              <h3>🎨 Colours</h3>
+              <button class="btn btn-sm btn-secondary" onclick="resetDesignDefaults()">Reset to Defaults</button>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Accent / Sage Colour</label>
+                  <div style="display:flex; gap:10px; align-items:center;">
+                    <input type="color" id="dc-sage" style="width:56px; height:40px; padding:2px; cursor:pointer;" oninput="applyDesign()">
+                    <input type="text" id="dc-sage-hex" placeholder="#A8B89C" style="flex:1;" oninput="syncColorFromHex('dc-sage','dc-sage-hex')">
+                  </div>
+                  <div style="font-size:11px; color:var(--admin-text-dim); margin-top:4px;">Used for highlights, links, buttons and the brand dot.</div>
+                </div>
+                <div class="form-group">
+                  <label>Page Background</label>
+                  <div style="display:flex; gap:10px; align-items:center;">
+                    <input type="color" id="dc-void" style="width:56px; height:40px; padding:2px; cursor:pointer;" oninput="applyDesign()">
+                    <input type="text" id="dc-void-hex" placeholder="#0A0A0A" style="flex:1;" oninput="syncColorFromHex('dc-void','dc-void-hex')">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Surface / Card Background</label>
+                  <div style="display:flex; gap:10px; align-items:center;">
+                    <input type="color" id="dc-surface" style="width:56px; height:40px; padding:2px; cursor:pointer;" oninput="applyDesign()">
+                    <input type="text" id="dc-surface-hex" placeholder="#141414" style="flex:1;" oninput="syncColorFromHex('dc-surface','dc-surface-hex')">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Main Text Colour</label>
+                  <div style="display:flex; gap:10px; align-items:center;">
+                    <input type="color" id="dc-white" style="width:56px; height:40px; padding:2px; cursor:pointer;" oninput="applyDesign()">
+                    <input type="text" id="dc-white-hex" placeholder="#F2F2F0" style="flex:1;" oninput="syncColorFromHex('dc-white','dc-white-hex')">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Live colour preview strip -->
+              <div style="margin-top:8px; border-radius:6px; overflow:hidden; display:flex; height:36px;">
+                <div id="cp-void"    style="flex:1;" title="Background"></div>
+                <div id="cp-surface" style="flex:1;" title="Surface"></div>
+                <div id="cp-sage"    style="flex:1;" title="Accent"></div>
+                <div id="cp-white"   style="flex:1;" title="Text"></div>
+              </div>
+              <div style="font-size:11px; color:var(--admin-text-dim); margin-top:4px; text-align:center;">Background · Surface · Accent · Text</div>
+            </div>
+          </div>
+
+          <!-- TYPOGRAPHY -->
+          <div class="card">
+            <div class="card-header"><h3>✏️ Typography</h3></div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Body / UI Font</label>
+                  <select id="dc-sans" onchange="applyDesign()">
+                    <option value='"DM Sans", sans-serif'>DM Sans (current)</option>
+                    <option value='"Inter", sans-serif'>Inter</option>
+                    <option value='"Helvetica Neue", Helvetica, sans-serif'>Helvetica Neue</option>
+                    <option value='"Futura", "Century Gothic", sans-serif'>Futura / Century Gothic</option>
+                    <option value='"Gill Sans", sans-serif'>Gill Sans</option>
+                    <option value='Georgia, serif'>Georgia</option>
+                    <option value='system-ui, sans-serif'>System Default</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Heading / Display Font</label>
+                  <select id="dc-serif" onchange="applyDesign()">
+                    <option value='"Newsreader", Georgia, serif'>Newsreader (current)</option>
+                    <option value='"Playfair Display", serif'>Playfair Display</option>
+                    <option value='"Cormorant Garamond", serif'>Cormorant Garamond</option>
+                    <option value='"EB Garamond", serif'>EB Garamond</option>
+                    <option value='"Libre Baskerville", serif'>Libre Baskerville</option>
+                    <option value='"DM Serif Display", serif'>DM Serif Display</option>
+                    <option value='"Times New Roman", serif'>Times New Roman</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-grid" style="margin-top:8px;">
+                <div class="form-group">
+                  <label>Hero Title Size — <span id="dc-hero-size-val">clamp(3rem,8vw,7.5rem)</span></label>
+                  <div style="display:flex; gap:12px; align-items:center;">
+                    <input type="range" id="dc-hero-size" min="4" max="12" step="0.5" value="7.5"
+                           style="flex:1; accent-color:var(--admin-accent);"
+                           oninput="document.getElementById('dc-hero-size-val').textContent='clamp(3rem,8vw,'+this.value+'rem)'; applyDesign()">
+                    <span style="font-size:12px; color:var(--admin-text-dim); min-width:40px;" id="dc-hero-size-px"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Body Text Size — <span id="dc-body-size-val">1rem</span></label>
+                  <div style="display:flex; gap:12px; align-items:center;">
+                    <input type="range" id="dc-body-size" min="12" max="22" step="1" value="16"
+                           style="flex:1; accent-color:var(--admin-accent);"
+                           oninput="document.getElementById('dc-body-size-val').textContent=(this.value/16).toFixed(2)+'rem ('+this.value+'px)'; applyDesign()">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Caption / Small Text Size — <span id="dc-caption-size-val">0.92rem</span></label>
+                  <div style="display:flex; gap:12px; align-items:center;">
+                    <input type="range" id="dc-caption-size" min="10" max="18" step="1" value="14"
+                           style="flex:1; accent-color:var(--admin-accent);"
+                           oninput="document.getElementById('dc-caption-size-val').textContent=(this.value/16).toFixed(2)+'rem ('+this.value+'px)'; applyDesign()">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Navigation Link Size — <span id="dc-nav-size-val">0.78rem</span></label>
+                  <div style="display:flex; gap:12px; align-items:center;">
+                    <input type="range" id="dc-nav-size" min="10" max="16" step="1" value="12"
+                           style="flex:1; accent-color:var(--admin-accent);"
+                           oninput="document.getElementById('dc-nav-size-val').textContent=(this.value/16).toFixed(2)+'rem ('+this.value+'px)'; applyDesign()">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- HERO IMAGE -->
+          <div class="card">
+            <div class="card-header"><h3>🖼️ Hero Image</h3></div>
+            <div class="card-body">
+              <p style="font-size:13px; color:var(--admin-text-dim); margin-bottom:16px;">
+                Pick the full-screen image shown on the homepage. You can also upload a new photo from the Plates Catalog panel.
+              </p>
+              <div class="form-group">
+                <label>Current Hero Image Path</label>
+                <input type="text" id="dc-hero-image" placeholder="images/04-hamburg-rathaus-barriers.jpg" oninput="updateHeroPreview()">
+              </div>
+              <div id="dc-hero-preview" style="margin-top:12px; border-radius:4px; overflow:hidden; max-height:260px;">
+                <img id="dc-hero-img-tag" src="" style="width:100%; object-fit:cover; max-height:260px; display:none; border:1px solid var(--admin-border); border-radius:4px;">
+              </div>
+              <div style="margin-top:16px;">
+                <label style="font-size:12px; font-weight:600; color:var(--admin-text-dim); display:block; margin-bottom:8px;">Or pick from your media library:</label>
+                <div class="media-grid" id="dc-hero-media-grid" style="max-height:280px; overflow-y:auto;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LAYOUT -->
+          <div class="card">
+            <div class="card-header"><h3>⊞ Layout</h3></div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Gallery Grid Style</label>
+                  <select id="dc-gallery-layout" onchange="applyDesign()">
+                    <option value="asymmetric">Asymmetric (current — editorial alternating)</option>
+                    <option value="3col">3-Column Equal</option>
+                    <option value="2col">2-Column Equal</option>
+                    <option value="1col">Single Column</option>
+                    <option value="masonry">Masonry-style (varied heights)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Gallery Card Gap</label>
+                  <div style="display:flex; gap:12px; align-items:center;">
+                    <input type="range" id="dc-gallery-gap" min="0" max="48" step="4" value="16"
+                           style="flex:1; accent-color:var(--admin-accent);"
+                           oninput="document.getElementById('dc-gallery-gap-val').textContent=this.value+'px'; applyDesign()">
+                    <span id="dc-gallery-gap-val" style="font-size:12px; color:var(--admin-text-dim); min-width:32px;">16px</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Max Page Width</label>
+                  <select id="dc-max-width" onchange="applyDesign()">
+                    <option value="1440px">1440px (current)</option>
+                    <option value="1280px">1280px — narrower</option>
+                    <option value="1600px">1600px — wider</option>
+                    <option value="1920px">1920px — full HD</option>
+                    <option value="100%">No limit — full width</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Section Vertical Spacing</label>
+                  <select id="dc-section-spacing" onchange="applyDesign()">
+                    <option value="normal">Normal (current)</option>
+                    <option value="compact">Compact — tighter sections</option>
+                    <option value="spacious">Spacious — more breathing room</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SAVE / APPLY -->
+          <div class="card">
+            <div class="card-header"><h3>Apply Design Changes</h3></div>
+            <div class="card-body" style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+              <button class="btn btn-primary" onclick="saveDesignToServer()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                Save Design to Site
+              </button>
+              <button class="btn btn-secondary" onclick="previewDesignInModal()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                Preview in Live Site
+              </button>
+              <button class="btn btn-secondary" onclick="resetDesignDefaults()">Reset All to Defaults</button>
+              <p style="font-size:12px; color:var(--admin-text-dim); flex-basis:100%; margin-top:4px;">
+                "Save Design to Site" writes a <code style="font-size:11px;">design_overrides.css</code> file and updates <code style="font-size:11px;">style.css</code> via the server API. Changes are visible immediately after saving.
+              </p>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- SETTINGS PANEL -->
+        <section id="panel-settings" class="panel">
+          <div class="card">
+            <div class="card-header">
+              <h3>General Identity & Studio Information</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Full Artist Name</label>
+                  <input type="text" data-bind="identity.name">
+                </div>
+                <div class="form-group">
+                  <label>Professional Role</label>
+                  <input type="text" data-bind="identity.role">
+                </div>
+                <div class="form-group">
+                  <label>Studio Base Location</label>
+                  <input type="text" data-bind="identity.location">
+                </div>
+                <div class="form-group">
+                  <label>Copyright Year</label>
+                  <input type="text" data-bind="identity.copyrightYear">
+                </div>
+                <div class="form-group">
+                  <label>Contact Email</label>
+                  <input type="email" data-bind="identity.email">
+                </div>
+                <div class="form-group">
+                  <label>Contact Phone</label>
+                  <input type="tel" data-bind="identity.phone">
+                </div>
+                <div class="form-group">
+                  <label>Instagram Handle</label>
+                  <input type="text" data-bind="identity.instagram">
+                </div>
+                <div class="form-group">
+                  <label>Instagram URL</label>
+                  <input type="text" data-bind="identity.instagramUrl">
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- PREVIEW MODAL -->
+  <div class="modal-overlay" id="preview-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-weight:600;">Live Site Preview</h3>
+        <div class="flex-row">
+          <button class="btn btn-sm btn-secondary" onclick="document.getElementById('preview-iframe').contentWindow.location.reload();">Reload</button>
+          <button class="btn btn-sm btn-danger" onclick="closePreviewModal()">Close</button>
+        </div>
+      </div>
+      <div class="modal-body" style="padding:0; overflow:hidden;">
+        <iframe id="preview-iframe" src="index.html" style="width:100%; height:100%; border:none;"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- LOGIC SCRIPT -->
+  <script>
+    let siteData = {};
+    let isDirty = false;
+
+    // Fetch Inquiries
+    async function fetchInquiries() {
+      const container = document.getElementById('inquiries-container');
+      try {
+        const res = await fetch('/api/inquiries');
+        if (res.ok) {
+          const json = await res.json();
+          const inqs = json.inquiries || [];
+          document.getElementById('sidebar-inquiry-count').textContent = inqs.length;
+
+          if (inqs.length === 0) {
+            container.innerHTML = '<div style="color:var(--admin-text-dim); text-align:center; padding:24px;">No inquiries received yet.</div>';
+            return;
+          }
+
+          container.innerHTML = inqs.map(inq => `
+            <div style="background:var(--admin-input); border:1px solid var(--admin-border); border-radius:6px; padding:16px; margin-bottom:12px;">
+              <div class="flex-between" style="margin-bottom:8px;">
+                <div style="font-weight:700; color:var(--admin-accent); font-size:14px;">${inq.name || 'Anonymous'} &lt;${inq.email || 'no email'}&gt;</div>
+                <div style="font-size:12px; color:var(--admin-text-dim);">${inq.timestamp ? new Date(inq.timestamp).toLocaleString() : ''}</div>
+              </div>
+              <div style="font-size:12px; margin-bottom:8px; color:var(--admin-text-dim);">
+                <strong>Org:</strong> ${inq.org || '—'} | <strong>Classification:</strong> ${inq.type || 'General'}
+              </div>
+              <div style="background:rgba(255,255,255,0.03); padding:12px; border-radius:4px; font-size:13px; white-space:pre-wrap;">${inq.message || inq.msg || ''}</div>
+            </div>
+          `).join('');
+          return;
+        }
+      } catch (e) {}
+      container.innerHTML = '<div style="color:var(--admin-text-dim); text-align:center; padding:24px;">Could not fetch inquiries from server.</div>';
+    }
+
+    // Load initial data
+    async function initAdmin() {
+      try {
+        // Try to fetch via API first
+        const res = await fetch('/api/data');
+        if (res.ok) {
+          siteData = await res.json();
+        } else {
+          // Fall back to getSiteData()
+          siteData = JSON.parse(JSON.stringify(getSiteData()));
+        }
+      } catch (e) {
+        siteData = JSON.parse(JSON.stringify(getSiteData()));
+      }
+
+      bindInputs();
+      renderPlatesList();
+      renderStats();
+      renderChapters();
+      updateCounters();
+      fetchMediaImages();
+      fetchInquiries();
+      initDesignPanel();
+    }
+
+    // Switch Panel
+    function switchPanel(panelName) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+      const target = document.getElementById(`panel-${panelName}`);
+      if (target) target.classList.add('active');
+
+      const titleMap = {
+        'dashboard': 'Overview',
+        'photos': 'Plates Catalog',
+        'media': 'Media Library',
+        'home': 'Cover & Statement',
+        'about': 'Field Dossier',
+        'commentary': 'Commentary',
+        'contact': 'Inquiries Desk',
+        'settings': 'Identity & Meta',
+        'design': 'Design & Appearance'
+      };
+      document.getElementById('panel-title').textContent = titleMap[panelName] || 'Dashboard';
+
+      // Set active nav
+      event.currentTarget.classList.add('active');
+    }
+
+    // Mark as dirty
+    function markDirty() {
+      isDirty = true;
+      document.getElementById('unsaved-indicator').style.display = 'inline';
+    }
+
+    function clearDirty() {
+      isDirty = false;
+      document.getElementById('unsaved-indicator').style.display = 'none';
+    }
+
+    // Resolve dot-notation path in object
+    function getNested(obj, path) {
+      return path.split('.').reduce((prev, curr) => (prev ? prev[curr] : undefined), obj);
+    }
+
+    function setNested(obj, path, val) {
+      const keys = path.split('.');
+      const lastKey = keys.pop();
+      const target = keys.reduce((acc, k) => {
+        if (!acc[k]) acc[k] = {};
+        return acc[k];
+      }, obj);
+      target[lastKey] = val;
+    }
+
+    // Bind text/textarea inputs with [data-bind]
+    function bindInputs() {
+      document.querySelectorAll('[data-bind]').forEach(el => {
+        const path = el.getAttribute('data-bind');
+        let val = getNested(siteData, path);
+
+        if (Array.isArray(val)) {
+          el.value = val.join('\n\n');
+        } else {
+          el.value = val || '';
+        }
+
+        el.addEventListener('input', (e) => {
+          if (Array.isArray(getNested(siteData, path))) {
+            const arr = e.target.value.split('\n\n').map(s => s.trim()).filter(Boolean);
+            setNested(siteData, path, arr);
+          } else {
+            setNested(siteData, path, e.target.value);
+          }
+          markDirty();
+        });
+      });
+    }
+
+    // Render plates list
+    function renderPlatesList() {
+      const container = document.getElementById('plates-container');
+      const filter = document.getElementById('category-filter') ? document.getElementById('category-filter').value : 'all';
+
+      const filtered = siteData.photos.filter(p => filter === 'all' || p.category === filter);
+      document.getElementById('existing-plates-count').textContent = siteData.photos.length;
+
+      container.innerHTML = filtered.map((photo, i) => {
+        const realIndex = siteData.photos.indexOf(photo);
+        return `
+          <div class="photo-item">
+            <img class="photo-preview" src="${photo.image}" onerror="this.src='images/hero.svg'">
+            <div class="photo-info">
+              <div class="flex-row">
+                <input type="text" value="${photo.num || ''}" style="width:70px; font-weight:700;" onchange="updatePlateField(${realIndex}, 'num', this.value)">
+                <input type="text" value="${photo.title || ''}" style="font-weight:700;" onchange="updatePlateField(${realIndex}, 'title', this.value)">
+                <input type="text" value="${photo.year || ''}" style="width:70px;" onchange="updatePlateField(${realIndex}, 'year', this.value)">
+                <select style="width:130px;" onchange="updatePlateField(${realIndex}, 'category', this.value)">
+                  <option value="architecture" ${photo.category === 'architecture' ? 'selected' : ''}>Architecture</option>
+                  <option value="landscape" ${photo.category === 'landscape' ? 'selected' : ''}>Landscape</option>
+                  <option value="commentary" ${photo.category === 'commentary' ? 'selected' : ''}>Commentary</option>
+                </select>
+              </div>
+              <input type="text" value="${photo.image || ''}" style="font-size:12px;" onchange="updatePlateField(${realIndex}, 'image', this.value)">
+              <input type="text" value="${photo.meta || ''}" placeholder="EXIF" style="font-size:12px; color:var(--admin-text-dim);" onchange="updatePlateField(${realIndex}, 'meta', this.value)">
+              <textarea placeholder="Caption" style="min-height:60px; font-size:13px;" onchange="updatePlateField(${realIndex}, 'caption', this.value)">${photo.caption || ''}</textarea>
+            </div>
+            <div class="photo-actions">
+              <button class="btn btn-sm btn-secondary" onclick="movePlate(${realIndex}, -1)" ${realIndex === 0 ? 'disabled' : ''}>↑</button>
+              <button class="btn btn-sm btn-secondary" onclick="movePlate(${realIndex}, 1)" ${realIndex === siteData.photos.length - 1 ? 'disabled' : ''}>↓</button>
+              <button class="btn btn-sm btn-danger" onclick="deletePlate(${realIndex})">✕</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateCounters();
+    }
+
+    function updatePlateField(idx, field, val) {
+      siteData.photos[idx][field] = val;
+      markDirty();
+      if (field === 'image') renderPlatesList();
+    }
+
+    function movePlate(idx, dir) {
+      const target = idx + dir;
+      if (target < 0 || target >= siteData.photos.length) return;
+      const tmp = siteData.photos[idx];
+      siteData.photos[idx] = siteData.photos[target];
+      siteData.photos[target] = tmp;
+      markDirty();
+      renderPlatesList();
+    }
+
+    function deletePlate(idx) {
+      if (confirm(`Delete "${siteData.photos[idx].title}"?`)) {
+        siteData.photos.splice(idx, 1);
+        markDirty();
+        renderPlatesList();
+      }
+    }
+
+    // Photo Upload
+    async function handlePhotoUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async function(evt) {
+        const base64 = evt.target.result;
+        document.getElementById('new-photo-preview').src = base64;
+        document.getElementById('new-photo-preview-container').style.display = 'block';
+
+        // Auto-populate title if empty
+        if (!document.getElementById('new-plate-title').value) {
+          document.getElementById('new-plate-title').value = file.name.replace(/\.[^/.]+$/, "");
+        }
+
+        // Try direct upload to server
+        try {
+          const res = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              filename: file.name,
+              filedata: base64
+            })
+          });
+          const json = await res.json();
+          if (json.success) {
+            document.getElementById('new-plate-image').value = json.path;
+            showToast('Image uploaded successfully to server!');
+            fetchMediaImages();
+          } else {
+            document.getElementById('new-plate-image').value = base64;
+          }
+        } catch (err) {
+          document.getElementById('new-plate-image').value = base64;
+          showToast('Image cached locally.');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Add Plate
+    function addPlate() {
+      const img = document.getElementById('new-plate-image').value.trim();
+      const title = document.getElementById('new-plate-title').value.trim();
+
+      if (!img) {
+        alert('Please choose or provide an image');
+        return;
+      }
+
+      const nextNum = `N°${String(siteData.photos.length + 1).padStart(2, '0')}`;
+      const newPhoto = {
+        id: String(Date.now()),
+        num: document.getElementById('new-plate-num').value.trim() || nextNum,
+        title: title || "Untitled Survey Plate",
+        year: document.getElementById('new-plate-year').value.trim() || "2026",
+        category: document.getElementById('new-plate-category').value,
+        caption: document.getElementById('new-plate-caption').value.trim(),
+        image: img,
+        meta: document.getElementById('new-plate-meta').value.trim() || "Canon EOS · 35mm · f/8"
+      };
+
+      siteData.photos.unshift(newPhoto);
+      markDirty();
+      renderPlatesList();
+
+      // Reset
+      document.getElementById('new-plate-image').value = '';
+      document.getElementById('new-plate-title').value = '';
+      document.getElementById('new-plate-caption').value = '';
+      document.getElementById('new-photo-preview-container').style.display = 'none';
+
+      showToast('Photo added to catalog!');
+    }
+
+    // Media Library Fetch
+    async function fetchMediaImages() {
+      const grid = document.getElementById('media-library-grid');
+      try {
+        const res = await fetch('/api/images');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.images && data.images.length > 0) {
+            grid.innerHTML = data.images.map(img => `
+              <div class="media-item" onclick="copyImagePath('${img}')" title="Click to copy path: ${img}">
+                <img src="${img}" loading="lazy">
+              </div>
+            `).join('');
+            return;
+          }
+        }
+      } catch (e) {}
+
+      // Fallback: list images referenced in catalog
+      const imgs = Array.from(new Set(siteData.photos.map(p => p.image).filter(i => i.startsWith('images/'))));
+      grid.innerHTML = imgs.map(img => `
+        <div class="media-item" onclick="copyImagePath('${img}')" title="Click to copy path: ${img}">
+          <img src="${img}" loading="lazy">
+        </div>
+      `).join('');
+    }
+
+    function copyImagePath(path) {
+      navigator.clipboard.writeText(path);
+      showToast(`Copied "${path}" to clipboard!`);
+    }
+
+    // Stats editor
+    function renderStats() {
+      const container = document.getElementById('stats-container');
+      if (!siteData.about || !siteData.about.stats) return;
+
+      container.innerHTML = siteData.about.stats.map((s, idx) => `
+        <div style="background:var(--admin-input); border:1px solid var(--admin-border); padding:16px; border-radius:6px;">
+          <label>Metric #${idx+1}</label>
+          <input type="text" value="${s.value}" style="font-weight:700; margin-bottom:8px;" onchange="siteData.about.stats[${idx}].value=this.value; markDirty();">
+          <input type="text" value="${s.label}" onchange="siteData.about.stats[${idx}].label=this.value; markDirty();">
+          <button class="btn btn-sm btn-danger mt-4" onclick="removeMetric(${idx})">Remove</button>
+        </div>
+      `).join('');
+    }
+
+    function addMetric() {
+      siteData.about.stats.push({ value: "0", label: "New Metric" });
+      markDirty();
+      renderStats();
+    }
+
+    function removeMetric(idx) {
+      siteData.about.stats.splice(idx, 1);
+      markDirty();
+      renderStats();
+    }
+
+    // Chapters editor
+    function renderChapters() {
+      const container = document.getElementById('chapters-container');
+      if (!siteData.commentary || !siteData.commentary.essay) return;
+
+      container.innerHTML = siteData.commentary.essay.map((chap, idx) => `
+        <div style="background:var(--admin-input); border:1px solid var(--admin-border); padding:16px; border-radius:6px; margin-bottom:16px;">
+          <div class="form-group">
+            <label>Chapter #${idx+1} Subhead</label>
+            <input type="text" value="${chap.subhead}" onchange="siteData.commentary.essay[${idx}].subhead=this.value; markDirty();">
+          </div>
+          <div class="form-group">
+            <label>Body Text</label>
+            <textarea onchange="siteData.commentary.essay[${idx}].text=this.value; markDirty();">${chap.text}</textarea>
+          </div>
+          <button class="btn btn-sm btn-danger" onclick="removeChapter(${idx})">Delete Chapter</button>
+        </div>
+      `).join('');
+    }
+
+    function addChapter() {
+      siteData.commentary.essay.push({ subhead: "New Chapter", text: "Essay content..." });
+      markDirty();
+      renderChapters();
+    }
+
+    function removeChapter(idx) {
+      siteData.commentary.essay.splice(idx, 1);
+      markDirty();
+      renderChapters();
+    }
+
+    // Save Data to Server
+    async function saveDataToServer() {
+      try {
+        const res = await fetch('/api/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(siteData)
+        });
+
+        if (res.ok) {
+          showToast('✓ Saved permanently to server!');
+          clearDirty();
+        } else {
+          throw new Error('Save failed');
+        }
+      } catch (err) {
+        showToast('⚠️ Could not connect to API server. Backed up to browser storage.');
+        // Also save to localStorage as a safety net
+        localStorage.setItem('survey_portfolio_data', JSON.stringify(siteData));
+      }
+    }
+
+    // Backup Export & Import
+    function exportBackupJson() {
+      const blob = new Blob([JSON.stringify(siteData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `survey_backup_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('JSON backup exported!');
+    }
+
+    function importBackupJson(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          siteData = JSON.parse(evt.target.result);
+          bindInputs();
+          renderPlatesList();
+          renderStats();
+          renderChapters();
+          markDirty();
+          showToast('Backup restored into editor! Click "Save Changes" to apply.');
+        } catch (err) {
+          alert('Invalid JSON file');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Update Dashboard Counters
+    function updateCounters() {
+      const count = siteData.photos ? siteData.photos.length : 0;
+      document.getElementById('sidebar-photo-count').textContent = count;
+      document.getElementById('dash-plate-count').textContent = count;
+      if (siteData.about && siteData.about.stats) {
+        const sites = siteData.about.stats.find(s => s.label.toLowerCase().includes('site'));
+        if (sites) document.getElementById('dash-sites-count').textContent = sites.value;
+        const comm = siteData.about.stats.find(s => s.label.toLowerCase().includes('community'));
+        if (comm) document.getElementById('dash-community-count').textContent = comm.value;
+      }
+    }
+
+    // Preview Modal
+    function openPreviewModal() {
+      document.getElementById('preview-modal').classList.add('active');
+      document.getElementById('preview-iframe').contentWindow.location.reload();
+    }
+
+    function closePreviewModal() {
+      document.getElementById('preview-modal').classList.remove('active');
+    }
+
+    // Toast
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const el = document.createElement('div');
+      el.className = 'toast';
+      el.textContent = msg;
+      container.appendChild(el);
+      setTimeout(() => {
+        el.remove();
+      }, 3500);
+    }
+
+    // ============================================================
+    //  DESIGN & APPEARANCE PANEL
+    // ============================================================
+
+    // Default site CSS values (mirrors style.css :root)
+    const DESIGN_DEFAULTS = {
+      sage:        '#A8B89C',
+      void:        '#0A0A0A',
+      surface:     '#141414',
+      white:       '#F2F2F0',
+      sans:        '"DM Sans", sans-serif',
+      serif:       '"Newsreader", Georgia, serif',
+      heroSize:    7.5,   // rem max
+      bodySize:    16,    // px
+      captionSize: 14,    // px (0.92rem ≈ 14.72px, round to 14)
+      navSize:     12,    // px (0.78rem ≈ 12.5px)
+      galleryLayout: 'asymmetric',
+      galleryGap:  16,    // px
+      maxWidth:    '1440px',
+      sectionSpacing: 'normal',
+      heroImage:   'images/04-hamburg-rathaus-barriers.jpg',
+    };
+
+    let designValues = Object.assign({}, DESIGN_DEFAULTS);
+
+    function initDesignPanel() {
+      // Load saved design if any
+      try {
+        const saved = localStorage.getItem('survey_design_values');
+        if (saved) designValues = Object.assign({}, DESIGN_DEFAULTS, JSON.parse(saved));
+      } catch(e) {}
+
+      // Also pull hero image from siteData if available
+      if (siteData && siteData.home && siteData.home.heroImage) {
+        designValues.heroImage = siteData.home.heroImage;
+      }
+
+      // Populate colour pickers
+      setColorInputs('dc-void',    designValues.void);
+      setColorInputs('dc-surface', designValues.surface);
+      setColorInputs('dc-sage',    designValues.sage);
+      setColorInputs('dc-white',   designValues.white);
+
+      // Fonts
+      document.getElementById('dc-sans').value  = designValues.sans;
+      document.getElementById('dc-serif').value = designValues.serif;
+
+      // Sliders
+      document.getElementById('dc-hero-size').value    = designValues.heroSize;
+      document.getElementById('dc-body-size').value    = designValues.bodySize;
+      document.getElementById('dc-caption-size').value = designValues.captionSize;
+      document.getElementById('dc-nav-size').value     = designValues.navSize;
+      document.getElementById('dc-gallery-gap').value  = designValues.galleryGap;
+
+      // Update displayed labels
+      document.getElementById('dc-hero-size-val').textContent    = 'clamp(3rem,8vw,'+designValues.heroSize+'rem)';
+      document.getElementById('dc-body-size-val').textContent    = (designValues.bodySize/16).toFixed(2)+'rem ('+designValues.bodySize+'px)';
+      document.getElementById('dc-caption-size-val').textContent = (designValues.captionSize/16).toFixed(2)+'rem ('+designValues.captionSize+'px)';
+      document.getElementById('dc-nav-size-val').textContent     = (designValues.navSize/16).toFixed(2)+'rem ('+designValues.navSize+'px)';
+      document.getElementById('dc-gallery-gap-val').textContent  = designValues.galleryGap+'px';
+
+      // Selects
+      document.getElementById('dc-gallery-layout').value   = designValues.galleryLayout;
+      document.getElementById('dc-max-width').value        = designValues.maxWidth;
+      document.getElementById('dc-section-spacing').value  = designValues.sectionSpacing;
+
+      // Hero image
+      document.getElementById('dc-hero-image').value = designValues.heroImage;
+      updateHeroPreview();
+
+      // Populate hero media grid
+      populateHeroMediaGrid();
+
+      updateColorPreviewStrip();
+    }
+
+    function setColorInputs(id, hex) {
+      const picker = document.getElementById(id);
+      const text   = document.getElementById(id+'-hex');
+      if (picker) picker.value = hex;
+      if (text)   text.value   = hex;
+    }
+
+    function syncColorFromHex(pickerId, hexId) {
+      const hex = document.getElementById(hexId).value.trim();
+      if (/^#[0-9a-fA-F]{6}$/.test(hex)) {
+        document.getElementById(pickerId).value = hex;
+        applyDesign();
+      }
+    }
+
+    function readDesignValues() {
+      designValues.void    = document.getElementById('dc-void').value;
+      designValues.surface = document.getElementById('dc-surface').value;
+      designValues.sage    = document.getElementById('dc-sage').value;
+      designValues.white   = document.getElementById('dc-white').value;
+
+      // Keep hex text boxes in sync
+      ['void','surface','sage','white'].forEach(k => {
+        const el = document.getElementById('dc-'+k+'-hex');
+        if (el) el.value = designValues[k];
+      });
+
+      designValues.sans    = document.getElementById('dc-sans').value;
+      designValues.serif   = document.getElementById('dc-serif').value;
+
+      designValues.heroSize    = parseFloat(document.getElementById('dc-hero-size').value);
+      designValues.bodySize    = parseInt(document.getElementById('dc-body-size').value);
+      designValues.captionSize = parseInt(document.getElementById('dc-caption-size').value);
+      designValues.navSize     = parseInt(document.getElementById('dc-nav-size').value);
+      designValues.galleryGap  = parseInt(document.getElementById('dc-gallery-gap').value);
+
+      designValues.galleryLayout  = document.getElementById('dc-gallery-layout').value;
+      designValues.maxWidth       = document.getElementById('dc-max-width').value;
+      designValues.sectionSpacing = document.getElementById('dc-section-spacing').value;
+
+      designValues.heroImage = document.getElementById('dc-hero-image').value.trim();
+    }
+
+    function applyDesign() {
+      readDesignValues();
+      updateColorPreviewStrip();
+
+      // Inject live CSS overrides into the preview iframe if it's open,
+      // and store locally so preview shows changes
+      localStorage.setItem('survey_design_values', JSON.stringify(designValues));
+      markDirty();
+    }
+
+    function updateColorPreviewStrip() {
+      document.getElementById('cp-void').style.background    = designValues.void    || document.getElementById('dc-void').value;
+      document.getElementById('cp-surface').style.background = designValues.surface || document.getElementById('dc-surface').value;
+      document.getElementById('cp-sage').style.background    = designValues.sage    || document.getElementById('dc-sage').value;
+      document.getElementById('cp-white').style.background   = designValues.white   || document.getElementById('dc-white').value;
+    }
+
+    function updateHeroPreview() {
+      const path = document.getElementById('dc-hero-image').value.trim();
+      const img  = document.getElementById('dc-hero-img-tag');
+      if (path) {
+        img.src   = path;
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+      designValues.heroImage = path;
+    }
+
+    function populateHeroMediaGrid() {
+      const grid = document.getElementById('dc-hero-media-grid');
+      if (!grid) return;
+      // Use photos already in catalog + any server images already shown in media library
+      const imgs = Array.from(new Set(
+        (siteData.photos || []).map(p => p.image).filter(i => i && !i.startsWith('data:'))
+      ));
+      if (imgs.length === 0) {
+        grid.innerHTML = '<div style="color:var(--admin-text-dim); font-size:12px;">No images found. Add plates first.</div>';
+        return;
+      }
+      grid.innerHTML = imgs.map(img => `
+        <div class="media-item ${img === designValues.heroImage ? 'selected' : ''}"
+             onclick="selectHeroImage('${img}')" title="${img}">
+          <img src="${img}" loading="lazy" onerror="this.parentElement.style.display='none'">
+        </div>
+      `).join('');
+    }
+
+    function selectHeroImage(path) {
+      document.getElementById('dc-hero-image').value = path;
+      updateHeroPreview();
+      // Highlight selected in grid
+      document.querySelectorAll('#dc-hero-media-grid .media-item').forEach(el => {
+        el.classList.toggle('selected', el.title === path);
+      });
+      applyDesign();
+    }
+
+    // Build the override CSS string from current design values
+    function buildDesignCSS(dv) {
+      // Gallery layout rules
+      let galleryRules = '';
+      switch(dv.galleryLayout) {
+        case '3col':
+          galleryRules = `
+.work, .work:nth-child(4n+1), .work:nth-child(4n+2),
+.work:nth-child(4n+3), .work:nth-child(4n) { grid-column: span 4; }
+.work:nth-child(4n+1) .work-img, .work:nth-child(4n+2) .work-img,
+.work:nth-child(4n+3) .work-img, .work:nth-child(4n) .work-img { aspect-ratio: 4/3; }`;
+          break;
+        case '2col':
+          galleryRules = `
+.work, .work:nth-child(4n+1), .work:nth-child(4n+2),
+.work:nth-child(4n+3), .work:nth-child(4n) { grid-column: span 6; }
+.work:nth-child(4n+1) .work-img, .work:nth-child(4n+2) .work-img,
+.work:nth-child(4n+3) .work-img, .work:nth-child(4n) .work-img { aspect-ratio: 4/3; }`;
+          break;
+        case '1col':
+          galleryRules = `
+.work, .work:nth-child(4n+1), .work:nth-child(4n+2),
+.work:nth-child(4n+3), .work:nth-child(4n) { grid-column: span 12; }
+.work:nth-child(4n+1) .work-img, .work:nth-child(4n+2) .work-img,
+.work:nth-child(4n+3) .work-img, .work:nth-child(4n) .work-img { aspect-ratio: 16/7; }`;
+          break;
+        case 'masonry':
+          galleryRules = `
+.work:nth-child(4n+1) { grid-column: span 5; }
+.work:nth-child(4n+2) { grid-column: span 7; }
+.work:nth-child(4n+3) { grid-column: span 7; }
+.work:nth-child(4n)   { grid-column: span 5; }
+.work:nth-child(4n+1) .work-img { aspect-ratio: 3/4; }
+.work:nth-child(4n+2) .work-img { aspect-ratio: 16/9; }
+.work:nth-child(4n+3) .work-img { aspect-ratio: 16/9; }
+.work:nth-child(4n)   .work-img { aspect-ratio: 3/4; }`;
+          break;
+        default: // asymmetric — site default, no overrides needed
+          galleryRules = '/* asymmetric layout: site default */';
+      }
+
+      // Section spacing multiplier
+      let spacingScale = '1';
+      if (dv.sectionSpacing === 'compact')  spacingScale = '0.6';
+      if (dv.sectionSpacing === 'spacious') spacingScale = '1.4';
+
+      // Font @import lines for Google Fonts picks
+      const googleFontMap = {
+        '"Playfair Display", serif':     'Playfair+Display:ital,wght@0,400;0,700;1,400',
+        '"Cormorant Garamond", serif':   'Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400',
+        '"EB Garamond", serif':          'EB+Garamond:ital,wght@0,400;1,400',
+        '"Libre Baskerville", serif':    'Libre+Baskerville:ital,wght@0,400;1,400',
+        '"DM Serif Display", serif':     'DM+Serif+Display:ital@0;1',
+        '"Inter", sans-serif':           'Inter:wght@300;400;500;600',
+      };
+      let fontImport = '';
+      const serifKey = dv.serif;
+      const sansKey  = dv.sans;
+      const imports = [];
+      if (googleFontMap[serifKey]) imports.push(googleFontMap[serifKey]);
+      if (googleFontMap[sansKey])  imports.push(googleFontMap[sansKey]);
+      if (imports.length) {
+        fontImport = `@import url('https://fonts.googleapis.com/css2?family=${imports.join('&family=')}&display=swap');\n`;
+      }
+
+      // Sage dim/dim calculations (keep proportional to sage)
+      const sageHex = dv.sage;
+      const r = parseInt(sageHex.slice(1,3),16);
+      const g = parseInt(sageHex.slice(3,5),16);
+      const b = parseInt(sageHex.slice(5,7),16);
+
+      return `/* ============================================================
+   DESIGN OVERRIDES — generated by Studio Control admin
+   Generated: ${new Date().toISOString()}
+   ============================================================ */
+${fontImport}
+:root {
+  --void:          ${dv.void};
+  --surface:       ${dv.surface};
+  --surface-raised: color-mix(in srgb, ${dv.surface} 70%, white 30%);
+  --surface-card:   color-mix(in srgb, ${dv.surface} 55%, white 45%);
+  --white:         ${dv.white};
+  --white-dim:     rgba(${r},${g},${b}, 0.55);
+  --white-faint:   rgba(${parseInt(dv.white.slice(1,3),16)},${parseInt(dv.white.slice(3,5),16)},${parseInt(dv.white.slice(5,7),16)}, 0.18);
+  --sage:          ${dv.sage};
+  --sage-dim:      rgba(${r},${g},${b}, 0.15);
+  --divider:       rgba(${parseInt(dv.white.slice(1,3),16)},${parseInt(dv.white.slice(3,5),16)},${parseInt(dv.white.slice(5,7),16)}, 0.10);
+  --sans:          ${dv.sans};
+  --serif:         ${dv.serif};
+}
+
+body { font-size: ${dv.bodySize}px; }
+
+.display { font-size: clamp(3rem, 8vw, ${dv.heroSize}rem); }
+
+.caption, .work .caption {
+  font-size: ${(dv.captionSize/16).toFixed(3)}rem;
+}
+
+.site-nav a { font-size: ${(dv.navSize/16).toFixed(3)}rem; }
+
+.wrap { max-width: ${dv.maxWidth}; }
+
+.gallery-grid { gap: clamp(${Math.max(4,dv.galleryGap-8)}px, 2vw, ${dv.galleryGap}px); }
+
+${galleryRules}
+
+/* Section spacing scale: ${dv.sectionSpacing} */
+.cover-highlights, .statement, .cover-portals,
+.commentary-page, .about-page, .contact-page {
+  padding-block: clamp(${Math.round(3*parseFloat(spacingScale))}rem, ${Math.round(6*parseFloat(spacingScale))}vw, ${Math.round(6*parseFloat(spacingScale))}rem);
+}
+`;
+    }
+
+    async function saveDesignToServer() {
+      readDesignValues();
+      const css = buildDesignCSS(designValues);
+
+      // Also update the heroImage in siteData so the site picks it up
+      if (designValues.heroImage && siteData.home) {
+        siteData.home.heroImage = designValues.heroImage;
+        // Re-bind inputs so the home panel shows the updated value
+        document.querySelectorAll('[data-bind="home.heroImage"]').forEach(el => {
+          el.value = designValues.heroImage;
+        });
+      }
+
+      let cssOk = false;
+      let dataOk = false;
+
+      // Save CSS file
+      try {
+        const res = await fetch('/api/save-css', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ filename: 'design_overrides.css', content: css })
+        });
+        cssOk = res.ok;
+      } catch(e) {}
+
+      // Save site data (hero image update)
+      try {
+        const res = await fetch('/api/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(siteData)
+        });
+        dataOk = res.ok;
+      } catch(e) {}
+
+      // Always save to localStorage as fallback
+      localStorage.setItem('survey_design_values', JSON.stringify(designValues));
+
+      if (cssOk) {
+        showToast('✓ Design saved! Refresh the site to see changes.');
+        clearDirty();
+      } else {
+        // Fallback: show instructions
+        showToast('⚠️ Server not running — design saved locally. See instructions below.');
+        // Offer CSS download
+        const blob = new Blob([css], {type:'text/css'});
+        const url  = URL.createObjectURL(blob);
+        const a    = document.createElement('a');
+        a.href     = url;
+        a.download = 'design_overrides.css';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    function previewDesignInModal() {
+      readDesignValues();
+      localStorage.setItem('survey_design_values', JSON.stringify(designValues));
+      openPreviewModal();
+    }
+
+    function resetDesignDefaults() {
+      if (!confirm('Reset all design settings to defaults?')) return;
+      designValues = Object.assign({}, DESIGN_DEFAULTS);
+      localStorage.removeItem('survey_design_values');
+      initDesignPanel();
+      showToast('Design reset to defaults.');
+      markDirty();
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', initAdmin);
+  </script>
+</body>
+</html>
